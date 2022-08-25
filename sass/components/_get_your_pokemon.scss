@@ -1,0 +1,18 @@
+.get-your-pokemon-section {
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+
+	h2 {
+		margin: 20px 60px 0px;
+		font-size: 3.2rem;
+	}
+
+	@import './pokemon_img_and_button';
+
+	@import './pokemon_details';
+}

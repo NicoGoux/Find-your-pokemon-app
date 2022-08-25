@@ -31,6 +31,14 @@ html {
   color: #c9d1d9;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d1117;
+}
+
 header {
   padding: 10px 60px 10px;
   display: flex;
@@ -72,14 +80,6 @@ header .header-nav li {
 header .header-nav li a {
   text-decoration: none;
   color: #c9d1d9;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #0d1117;
 }
 
 .presentation-logo-div {
@@ -137,6 +137,10 @@ main {
   align-items: center;
   justify-content: center;
 }
+.get-your-pokemon-section h2 {
+  margin: 20px 60px 0px;
+  font-size: 3.2rem;
+}
 .get-your-pokemon-section .pokemon-img-and-button {
   width: 100%;
   height: 550px;
@@ -186,10 +190,6 @@ main {
   box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
   -webkit-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
   -moz-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
-}
-.get-your-pokemon-section h2 {
-  margin: 20px 60px 0px;
-  font-size: 3.2rem;
 }
 .get-your-pokemon-section .pokemon-details {
   width: 60%;
