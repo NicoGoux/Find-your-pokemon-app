@@ -1,5 +1,6 @@
 // import fetch from 'node-fetch'; al probar en navegador no se usa el import
 const API = 'https://pokeapi.co/api/v2';
+const FIND_POKEMON_INPUT = document.querySelector('.find-pokemon-input');
 const FIND_POKEMON_BUTTON = document.querySelector('.find-pokemon-button');
 const BEFORE_IMG_BUTTON = document.querySelector('.before-img-button');
 const NEXT_IMG_BUTTON = document.querySelector('.next-img-button');
@@ -24,13 +25,23 @@ const POKEMON_EVOLUTION_CHAIN = document.querySelector(
 
 let image_list = [];
 
+FIND_POKEMON_INPUT.addEventListener('keypress', (event) => {
+	if (event.key === 'Enter') {
+		FIND_POKEMON_BUTTON.click();
+	}
+});
+
 FIND_POKEMON_BUTTON.addEventListener('click', async (event) => {
 	ERROR_TEXT.classList.add('inactive');
 
-	let pokedex_index = Math.ceil(Math.random() * 905);
+	//Se toma el valor del campo output y, en caso de ser vacio, se obtendra un pokemon aleatorio
+	const search_index = FIND_POKEMON_INPUT.value
+		? FIND_POKEMON_INPUT.value.toLowerCase().trim()
+		: Math.ceil(Math.random() * 905);
+
 	try {
 		//Se obtiene el pokemon
-		const pokemon = await fetchData(`${API}/pokemon/${pokedex_index}`);
+		const pokemon = await fetchData(`${API}/pokemon/${search_index}`);
 
 		//Se obtiene las posibles ubicaciones del pokemon
 		const pokemon_locations = await fetchData(
@@ -57,8 +68,12 @@ FIND_POKEMON_BUTTON.addEventListener('click', async (event) => {
 		setLocationsDetail(pokemon_locations);
 		setEvolutionChainDetail(pokemon_evolution_chain);
 	} catch (error) {
+		if (error.name == 'TypeError') {
+			ERROR_TEXT.innerText = 'Could not get access to PokeAPI';
+		} else if (error.name == 'SyntaxError') {
+			ERROR_TEXT.innerText = 'pokemon not found';
+		}
 		ERROR_TEXT.classList.remove('inactive');
-		console.log(error);
 	}
 });
 
@@ -191,8 +206,6 @@ function setLocationsDetail(locations) {
 }
 
 function setEvolutionChainDetail(evolution_chain) {
-	console.log(evolution_chain.chain);
-
 	// Pokemon inicial de la cadena
 	const init_chain_pokemon = evolution_chain.chain;
 
@@ -256,7 +269,6 @@ function recursivePokemonChain(init_pokemon, evolution_chain_string = '') {
 			Luego el mensaje se concatena al mensaje final (evolution_chain_string) y se devuelve.
 		*/
 		evolution_chain_string = '';
-		console.log(init_pokemon.evolves_to);
 		for (const evolution of init_pokemon.evolves_to) {
 			let individual_chain_evolution_string = init_pokemon.species.name;
 			individual_chain_evolution_string = recursivePokemonChain(
