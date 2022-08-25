@@ -4,7 +4,7 @@
 	"description": "proyecto practica de asincronismo - platzi",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"deploy": "gh-pages -d src"
 	},
 	"repository": {
 		"type": "git",
@@ -20,5 +20,8 @@
 		"node-fetch": "^3.2.10",
 		"normalize.css": "^8.0.1"
 	},
-	"type": "module"
+	"type": "module",
+	"devDependencies": {
+		"gh-pages": "^4.0.0"
+	}
 }
