@@ -4,6 +4,7 @@ $background: #0d1117;
 $foreground: #c9d1d9;
 $link-color: #e7e9eb;
 $color-get-pokemon-button: #aa5026;
+$error-color: rgb(158, 10, 10);
 
 .inactive {
 	display: none;
@@ -157,7 +158,7 @@ main {
 
 	.pokemon-img-and-button {
 		width: 100%;
-		height: 500px;
+		height: 550px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -182,6 +183,11 @@ main {
 				background-color: rgba(0, 0, 0, 0);
 				border: none;
 			}
+		}
+
+		.error-text {
+			color: rgb(158, 10, 10);
+			font-size: 1.4rem;
 		}
 
 		.find-pokemon-button {

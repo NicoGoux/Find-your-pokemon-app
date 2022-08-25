@@ -78,17 +78,16 @@
 							<span class="arrow-ico"> navigate_before </span>
 						</button>
 
-						<img
-							class="pokemon-img"
-							src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png"
-							alt=""
-						/>
+						<img class="pokemon-img inactive" />
 						<button
 							class="navigate-button next-img-button inactive"
 						>
 							<span class="arrow-ico"> navigate_next </span>
 						</button>
 					</figure>
+					<p class="error-text inactive">
+						Could not get access to PokeAPI
+					</p>
 					<button class="find-pokemon-button">
 						Find your pokemon!
 					</button>
@@ -96,22 +95,30 @@
 				<h2>Pokemon Details</h2>
 				<div class="pokemon-details">
 					<div class="detail-container">
-						<p>Pokedex Number:</p>
+						<p class="pokemon-num-field">Pokedex Number:</p>
 					</div>
 					<div class="detail-container">
-						<p>Name:</p>
+						<p class="pokemon-name-field">Name:</p>
 					</div>
 					<div class="detail-container">
-						<p>Types:</p>
+						<p class="pokemon-types-field">Types:</p>
 					</div>
 					<div class="detail-container">
-						<p>Skills:</p>
+						<p class="pokemon-height-field">Height (meters):</p>
 					</div>
 					<div class="detail-container">
-						<p>Locations:</p>
+						<p class="pokemon-weight-field">Weight (Kilograms):</p>
 					</div>
 					<div class="detail-container">
-						<p>Evolution chain:</p>
+						<p class="pokemon-skills-field">Skills:</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-locations-field">Locations:</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-evolution-chain-field">
+							Evolution chain:
+						</p>
 					</div>
 				</div>
 			</section>
@@ -124,5 +131,6 @@
 				<a href="">LinkedIn</a>
 			</div>
 		</footer>
+		<script type="module" src="./assets/index.js"></script>
 	</body>
 </html>

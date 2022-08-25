@@ -139,7 +139,7 @@ main {
 }
 .get-your-pokemon-section .pokemon-img-and-button {
   width: 100%;
-  height: 500px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -162,6 +162,10 @@ main {
 .get-your-pokemon-section .pokemon-img-and-button .pokemon-img-container .navigate-button {
   background-color: rgba(0, 0, 0, 0);
   border: none;
+}
+.get-your-pokemon-section .pokemon-img-and-button .error-text {
+  color: #9e0a0a;
+  font-size: 1.4rem;
 }
 .get-your-pokemon-section .pokemon-img-and-button .find-pokemon-button {
   width: 400px;
