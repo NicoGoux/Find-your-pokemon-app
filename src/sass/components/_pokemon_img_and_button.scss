@@ -1,0 +1,56 @@
+.pokemon-img-and-button {
+	width: 100%;
+	height: 550px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: $img-background;
+	border-bottom: 2px $foreground solid;
+	border-top: 2px $foreground solid;
+
+	.pokemon-img-container {
+		width: 350px;
+		height: 350px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.pokemon-img {
+			width: 70%;
+			height: 70%;
+		}
+
+		.navigate-button {
+			background-color: rgba(0, 0, 0, 0);
+			border: none;
+		}
+	}
+
+	.error-text {
+		color: rgb(158, 10, 10);
+		font-size: 1.4rem;
+	}
+
+	.find-pokemon-button {
+		width: 400px;
+		height: 75px;
+		font-size: 3.2rem;
+		font-weight: 700;
+		color: $foreground;
+		background-color: $color-get-pokemon-button;
+		transition: background-color 0.2s ease;
+		border: 2px $foreground solid;
+		border-radius: 100px;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #aa50268a;
+		}
+		&:active {
+			box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+			-webkit-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+			-moz-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+		}
+	}
+}

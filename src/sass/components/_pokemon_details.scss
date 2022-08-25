@@ -1,0 +1,29 @@
+.pokemon-details {
+	width: 60%;
+	height: fit-content;
+	padding: 20px 60px 20px;
+	margin: 30px 60px 60px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	border: 2px $foreground solid;
+	border-radius: 50px;
+
+	.detail-container {
+		width: 100%;
+		min-height: 40px;
+		height: fit-content;
+		margin: 20px 0px;
+		display: block;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.9rem;
+		border-bottom: 1px solid $foreground;
+
+		p {
+			margin: 10px;
+			text-align: justify;
+		}
+	}
+}

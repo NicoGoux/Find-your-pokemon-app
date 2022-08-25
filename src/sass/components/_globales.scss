@@ -1,0 +1,49 @@
+$hd-ft-background: #161b22;
+$img-background: #090c0f;
+$background: #0d1117;
+$foreground: #c9d1d9;
+$link-color: #e7e9eb;
+$color-get-pokemon-button: #aa5026;
+$error-color: rgb(158, 10, 10);
+
+.inactive {
+	display: none;
+}
+
+a {
+	text-decoration: underline;
+	color: $link-color;
+}
+
+.arrow-ico {
+	font-family: 'Material Icons';
+	font-weight: bold;
+	font-size: 4.2rem;
+	display: inline-block;
+	line-height: 1;
+	color: $color-get-pokemon-button;
+	transition: color 0.2s ease;
+
+	&:hover {
+		color: #aa50268a;
+	}
+	&:active {
+		box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+		-webkit-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+		-moz-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+	}
+}
+
+html {
+	font-size: 62.5%;
+	font-family: 'Roboto Mono', monospace;
+	color: $foreground;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: $background;
+}
