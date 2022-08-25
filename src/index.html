@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+		/>
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+
+	<body>
+		<header>
+			<figure class="logo-landing-page">
+				<img
+					src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+					alt="logo de landing page"
+				/>
+			</figure>
+			<nav class="header-nav">
+				<ul>
+					<li><a href="">About</a></li>
+					<li><a href="">Projects</a></li>
+					<li><a href="">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div class="presentation-logo-div">
+				<section class="presentation-section">
+					<h1>Find your pokemon!</h1>
+					<a href=""></a>
+					<p>
+						This page allows you to find a pokemon by using the
+						<a href="https://pokeapi.co/" target="_blank"
+							>PokeApi API</a
+						>. This is a project used to better understand the use
+						of APIs. Enjoy the page and visit the
+						<a
+							href="https://github.com/NicoGoux/Landing-Page"
+							target="_blank"
+							>GitHub repository</a
+						>
+					</p>
+				</section>
+				<section class="img-logo-section">
+					<figure>
+						<img
+							class="logo-pokemon"
+							src="https://cdn.worldvectorlogo.com/logos/pokemon-23.svg"
+							alt="logo-pokemon"
+						/>
+					</figure>
+				</section>
+			</div>
+			<section class="get-your-pokemon-section">
+				<div class="pokemon-img-and-button">
+					<figure class="pokemon-img-container">
+						<button
+							class="navigate-button before-img-button inactive"
+						>
+							<span class="arrow-ico"> navigate_before </span>
+						</button>
+
+						<img class="pokemon-img inactive" />
+						<button
+							class="navigate-button next-img-button inactive"
+						>
+							<span class="arrow-ico"> navigate_next </span>
+						</button>
+					</figure>
+					<p class="error-text inactive">
+						Could not get access to PokeAPI
+					</p>
+					<button class="find-pokemon-button">
+						Find your pokemon!
+					</button>
+				</div>
+				<h2>Pokemon Details</h2>
+				<div class="pokemon-details">
+					<div class="detail-container">
+						<p class="pokemon-num-field">Pokedex Number:</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-name-field">Name:</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-types-field">Types:</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-height-field">Height (meters):</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-weight-field">Weight (Kilograms):</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-skills-field">Skills:</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-locations-field">Locations:</p>
+					</div>
+					<div class="detail-container">
+						<p class="pokemon-evolution-chain-field">
+							Evolution chain:
+						</p>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div>
+				<a href="https://github.com/NicoGoux">GitHub</a>
+				<a href="https://www.instagram.com/nicogoux/?hl=en"
+					>Instagram</a
+				>
+				<a href="https://twitter.com/_NicoGoux">Twitter</a>
+				<a href="">LinkedIn</a>
+			</div>
+		</footer>
+		<script type="module" src="./assets/index.js"></script>
+	</body>
+</html>
