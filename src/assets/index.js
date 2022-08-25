@@ -29,9 +29,18 @@ FIND_POKEMON_BUTTON.addEventListener('click', async (event) => {
 
 	let pokedex_index = Math.ceil(Math.random() * 905);
 	try {
+		//Se obtiene el pokemon
 		const pokemon = await fetchData(`${API}/pokemon/${pokedex_index}`);
-		const pokemon_location = await fetchData(
+
+		//Se obtiene las posibles ubicaciones del pokemon
+		const pokemon_locations = await fetchData(
 			pokemon.location_area_encounters
+		);
+
+		//Se obtiene la cadena de evolucion del pokemon
+		const pokemon_species = await fetchData(pokemon.species.url);
+		const pokemon_evolution_chain = await fetchData(
+			pokemon_species.evolution_chain.url
 		);
 
 		// Se setea la imagen del pokemon
@@ -44,9 +53,12 @@ FIND_POKEMON_BUTTON.addEventListener('click', async (event) => {
 		setTypesDetail(pokemon.types);
 		setHeightDetail(pokemon.height);
 		setWeightDetail(pokemon.weight);
-		console.log(pokemon_location);
+		setSkillsDetail(pokemon.abilities);
+		setLocationsDetail(pokemon_locations);
+		setEvolutionChainDetail(pokemon_evolution_chain);
 	} catch (error) {
 		ERROR_TEXT.classList.remove('inactive');
+		console.log(error);
 	}
 });
 
@@ -93,24 +105,101 @@ function setPokemonImage(img, name) {
 // Seteo de detalles del pokemon
 
 function setNumberDetail(pokedex_number) {
-	POKEMON_NUM.innerText = `Pokedex Number: ${pokedex_number}`;
+	if (pokedex_number) {
+		POKEMON_NUM.innerText = `Pokedex Number: ${pokedex_number}`;
+	} else {
+		POKEMON_NUM.innerText = 'Pokedex Number: not specified';
+	}
 }
 
 function setNameDetail(name) {
-	POKEMON_NAME.innerText = `Name: ${name}`;
+	if (name) {
+		POKEMON_NAME.innerText = `Name: ${name}`;
+	} else {
+		POKEMON_NAME.innerText = `Name: not specified`;
+	}
 }
 
 function setTypesDetail(types) {
-	const types_string = 'Not Implemented';
-	POKEMON_TYPES.innerText = `Types: ${types_string}`;
+	if (types.length) {
+		const types_string_array = types.map((value) => value.type.name);
+		const types_string = types_string_array
+			.toString()
+			.replaceAll(',', ', ');
+		POKEMON_TYPES.innerText = `Types: ${types_string}`;
+	} else {
+		POKEMON_TYPES.innerText = `Types: not specified`;
+	}
 }
 
 function setHeightDetail(height) {
-	POKEMON_HEIGHT.innerText = `Height (meters): ${height / 10}`;
+	if (height) {
+		POKEMON_HEIGHT.innerText = `Height (meters): ${height / 10}`;
+	} else {
+		POKEMON_HEIGHT.innerText = `Height (meters): not specified`;
+	}
 }
 
 function setWeightDetail(weight) {
-	POKEMON_WEIGHT.innerText = `Weight (Kilograms): ${weight / 10}`;
+	if (weight) {
+		POKEMON_WEIGHT.innerText = `Weight (Kilograms): ${weight / 10}`;
+	} else {
+		POKEMON_WEIGHT.innerText = `Weight (Kilograms): not specified`;
+	}
+}
+
+function setSkillsDetail(skills) {
+	if (skills.length) {
+		const skills_string_array = skills.map((value) => value.ability.name);
+		const skills_string = skills_string_array
+			.toString()
+			.replaceAll(',', ', ')
+			.replaceAll('-', ' ');
+		POKEMON_SKILLS.innerText = `Types: ${skills_string}`;
+	} else {
+		POKEMON_SKILLS.innerText = `Types: not specified`;
+	}
+}
+
+function setLocationsDetail(locations) {
+	if (locations.length) {
+		const locations_string_array = locations.map(
+			(value) =>
+				value.location_area.name
+					.replaceAll(/\d+f?-?/gi, '')
+					.replaceAll(/-+/g, ' ')
+					.trim()
+			/*	
+				EL manejo de string se realiza para disminuir la cantidad de zonas mostradas,
+				dejando solamente indicada la zona principal a la que se hace referencia en
+				cada elemento
+					El primero replaceAll elimina los numeros de pisos/areas
+					El segundo replaceAll elimina los guiones y los reemplaza por espacios
+					trim eliminara los espacios en blanco iniciales y finales
+			*/
+		);
+
+		const locations_string = Array.from(
+			new Set(locations_string_array)
+			//Se genera un set para eliminar los elementos repetidos y luego se transforma a arreglo
+		).join(', ');
+
+		POKEMON_LOCATIONS.innerText = `Locations: ${locations_string}`;
+	} else {
+		POKEMON_LOCATIONS.innerText = `Locations: not specified`;
+	}
+}
+
+function setEvolutionChainDetail(evolution_chain) {
+	console.log(evolution_chain.chain);
+
+	// Pokemon inicial de la cadena
+	const init_chain_pokemon = evolution_chain.chain;
+
+	let evolution_chain_string = recursivePokemonChain(init_chain_pokemon)
+		.replaceAll(/-+/g, ' ')
+		.trim();
+	POKEMON_EVOLUTION_CHAIN.innerHTML = `Evolution chain: ${evolution_chain_string}`;
 }
 
 // Funcion Async para utilizar fetch
@@ -149,5 +238,45 @@ function getArrayFromObjectArray(objArr) {
 		que no existan mas Objetos dentro del arreglo
 
 		Puede probarse realizar de forma recursiva o mediante la funcion Map
+	*/
+}
+
+function recursivePokemonChain(init_pokemon, evolution_chain_string = '') {
+	evolution_chain_string += init_pokemon.species.name;
+	if (init_pokemon.evolves_to.length === 0) {
+		return evolution_chain_string;
+	} else if (init_pokemon.evolves_to.length === 1) {
+		return recursivePokemonChain(
+			init_pokemon.evolves_to[0],
+			evolution_chain_string + ' &#8594 '
+		);
+	} else {
+		/*	
+			En este caso se recorre la cadena de evolucion y se obtiene un mensaje por cada una de estas.
+			Luego el mensaje se concatena al mensaje final (evolution_chain_string) y se devuelve.
+		*/
+		evolution_chain_string = '';
+		console.log(init_pokemon.evolves_to);
+		for (const evolution of init_pokemon.evolves_to) {
+			let individual_chain_evolution_string = init_pokemon.species.name;
+			individual_chain_evolution_string = recursivePokemonChain(
+				evolution,
+				individual_chain_evolution_string + ' &#8594 '
+			);
+			evolution_chain_string += individual_chain_evolution_string + ', ';
+		}
+		//Se hace un slice para eliminar los dos ultimos caracteres ', ' agregados
+		return evolution_chain_string.slice(0, -2);
+	}
+
+	/* 
+		Este metodo recursivo se encarga de retornar en orden las lineas de evolucion
+		de los pokemon. En caso de presentarse un error puede deberse a que el "else"
+		solo servira en casos especificos como el de eevee y, al no conocer pokemones
+		que posean una cadena de evolucion mas larga, no pudo ser probado correctamente.
+		Este fallo podria darse en un caso muy especifico del cual desconozco su posibilidad
+		Supongamos un pokemon el cual puede evolucionar en 3 pokemones distintos y a su vez
+		estos 3 pueden evolucionar en 3 mas, en dicho caso la muestra en pantalla sera
+		inentendible
 	*/
 }

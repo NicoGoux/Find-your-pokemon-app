@@ -232,7 +232,8 @@ main {
 
 		.detail-container {
 			width: 100%;
-			height: 40px;
+			min-height: 40px;
+			height: fit-content;
 			margin: 20px 0px;
 			display: block;
 			align-items: center;
@@ -241,7 +242,8 @@ main {
 			border-bottom: 1px solid $foreground;
 
 			p {
-				margin: 0px;
+				margin: 10px;
+				text-align: justify;
 			}
 		}
 	}
@@ -258,6 +260,7 @@ footer {
 
 	a {
 		font-weight: 300;
+		margin: 0px 20px;
 		font-size: 1.4rem;
 		color: $foreground;
 	}
