@@ -1,4 +1,0 @@
-{
-	"compile-hero.disable-compile-files-on-did-save-code": false,
-	"compile-hero.ignore": ["../src/sass/components/*.scss"]
-}
