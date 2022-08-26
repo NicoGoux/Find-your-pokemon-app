@@ -1,0 +1,54 @@
+header {
+	@media (max-width: 475px) {
+		padding: 10px 30px 10px;
+		justify-content: space-between;
+
+		.header-nav {
+			position: absolute;
+			width: 150px;
+			height: 0px;
+			background-color: $hd-ft-background;
+			border: none;
+			border-radius: 20px;
+			right: 30px;
+			top: 75px;
+			overflow: hidden;
+			ul {
+				width: 100%;
+				padding: 10px;
+				flex-direction: column;
+				align-items: flex-end;
+				gap: 20px;
+			}
+		}
+		.burguer-menu {
+			display: block;
+			font-family: 'Material Icons';
+			font-weight: bold;
+			font-size: 4.2rem;
+			line-height: 1;
+			color: $foreground;
+			border: none;
+			border-radius: 50px;
+			transition: transform 0.5s ease, background-color 0.2s ease;
+			cursor: pointer;
+			order: 1;
+
+			&:hover {
+				transform: rotate(90deg);
+				background-color: opacify($color: $background, $amount: 0.9);
+			}
+
+			&:active {
+				box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+				-webkit-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+				-moz-box-shadow: 1px -1px 40px -14px rgba(0, 0, 0, 0.7) inset;
+			}
+		}
+
+		.nav-toggle {
+			height: fit-content;
+			border: 2px solid $foreground;
+		}
+	}
+}
