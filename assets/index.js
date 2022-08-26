@@ -300,20 +300,27 @@ function recursivePokemonChain(init_pokemon, evolution_chain_string = '') {
 // Manejo de busquedas recientes
 RECENT_SEARCH.addEventListener('click', (event) => {
 	DROPDOWN_LIST.classList.toggle('inactive');
+
 	if (document.cookie) {
+		// Se eliminan todos los elementos li dentro del elemento ul
 		while (DROPDOWN_LIST.firstChild) {
 			DROPDOWN_LIST.removeChild(DROPDOWN_LIST.firstChild);
 		}
+
+		// Se genera un array que contiene el nombre de los ultimos pokemon buscados
 		const recent_search_pokemon = document.cookie
 			.replace(/[a-z,_]*=/i, '')
 			.split(',');
+
+		// Se recorre el array de nombres y se crea un elemento li por cada uno de los nombres.
 		for (const recent_pokemon_name of recent_search_pokemon) {
 			let dropdown_item = document.createElement('li');
 			dropdown_item.setAttribute('class', 'last-search-item');
 			dropdown_item.innerText = recent_pokemon_name
 				.replaceAll('-', ' ')
 				.trim();
-			addClickEvent(dropdown_item);
+			// Se agrega un eventListener a cada elemento li antes de agregarlo al elemento ul
+			addClickEventListener(dropdown_item);
 			DROPDOWN_LIST.appendChild(dropdown_item);
 		}
 	}
@@ -323,20 +330,28 @@ DROPDOWN_LIST.addEventListener('mouseleave', (event) => {
 	DROPDOWN_LIST.classList.add('inactive');
 });
 
-function addClickEvent(dropdown_item) {
+function addClickEventListener(dropdown_item) {
 	dropdown_item.addEventListener('click', (event) => {
+		// Se setea el valor del elemento li al input y realiza una pulsacion del boton find_pokemon
 		FIND_POKEMON_INPUT.value = dropdown_item.innerText;
 		FIND_POKEMON_BUTTON.click();
 	});
 }
 
 function saveLastFiveSearch(pokemon_data) {
-	const cookie_array = document.cookie.replace(/[a-z,_]*=/i, '').split(',');
+	// Se declara un arreglo donde cada elemento sera un nombre de pokemon
+	let cookie_array = document.cookie.replace(/[a-z,_]*=/i, '').split(',');
+
+	//
 	if (cookie_array[0] != pokemon_data) {
 		if (cookie_array.find((name) => name === pokemon_data)) {
 			removeRepeatedSearch(pokemon_data);
+
+			// Se re-inicializa el arreglo para que no tenga en cuenta el ultimo elemento
+			cookie_array = document.cookie.replace(/[a-z,_]*=/i, '').split(',');
 		}
 
+		// Se almacenaran solo los ultimos 5 nombres buscados
 		if (cookie_array.length >= 5) {
 			removeOldestSearch();
 			addRecentSearch(pokemon_data);
@@ -359,10 +374,12 @@ function addRecentSearch(value) {
 }
 
 function removeOldestSearch() {
+	// Se elimina el ultimo elemento (mas antiguo)
 	const oldest_search_init = document.cookie.lastIndexOf(',');
 	document.cookie = document.cookie.substring(0, oldest_search_init);
 }
 
 function removeRepeatedSearch(value) {
+	// se elimina el elemento repetido para luego colocarlo nuevamente al principio
 	document.cookie = document.cookie.replace(',' + value, '');
 }
