@@ -5,6 +5,8 @@ const FIND_POKEMON_BUTTON = document.querySelector('.find-pokemon-button');
 const BEFORE_IMG_BUTTON = document.querySelector('.before-img-button');
 const NEXT_IMG_BUTTON = document.querySelector('.next-img-button');
 const ERROR_TEXT = document.querySelector('.error-text');
+const RECENT_SEARCH = document.querySelector('.last-pokemons-dropdown');
+const DROPDOWN_LIST = document.querySelector('.dropdown-list');
 
 // Pokemon details
 const POKEMON_IMG = document.querySelector('.pokemon-img');
@@ -32,11 +34,11 @@ FIND_POKEMON_INPUT.addEventListener('keypress', (event) => {
 });
 
 FIND_POKEMON_BUTTON.addEventListener('click', async (event) => {
-	ERROR_TEXT.classList.add('inactive');
+	ERROR_TEXT.innerText = '';
 
 	//Se toma el valor del campo output y, en caso de ser vacio, se obtendra un pokemon aleatorio
 	const search_index = FIND_POKEMON_INPUT.value
-		? FIND_POKEMON_INPUT.value.toLowerCase().trim()
+		? FIND_POKEMON_INPUT.value.toLowerCase().trim().replaceAll(' ', '-')
 		: Math.ceil(Math.random() * 905);
 
 	try {
@@ -67,13 +69,15 @@ FIND_POKEMON_BUTTON.addEventListener('click', async (event) => {
 		setSkillsDetail(pokemon.abilities);
 		setLocationsDetail(pokemon_locations);
 		setEvolutionChainDetail(pokemon_evolution_chain);
+
+		// Se guarda en cookie la ultima busqueda
+		saveLastFiveSearch(pokemon.name);
 	} catch (error) {
 		if (error.name == 'TypeError') {
 			ERROR_TEXT.innerText = 'Could not get access to PokeAPI';
 		} else if (error.name == 'SyntaxError') {
 			ERROR_TEXT.innerText = 'pokemon not found';
 		}
-		ERROR_TEXT.classList.remove('inactive');
 	}
 });
 
@@ -129,7 +133,7 @@ function setNumberDetail(pokedex_number) {
 
 function setNameDetail(name) {
 	if (name) {
-		POKEMON_NAME.innerText = `Name: ${name}`;
+		POKEMON_NAME.innerText = `Name: ${name.replaceAll('-', ' ')}`;
 	} else {
 		POKEMON_NAME.innerText = `Name: not specified`;
 	}
@@ -291,4 +295,74 @@ function recursivePokemonChain(init_pokemon, evolution_chain_string = '') {
 		estos 3 pueden evolucionar en 3 mas, en dicho caso la muestra en pantalla sera
 		inentendible
 	*/
+}
+
+// Manejo de busquedas recientes
+RECENT_SEARCH.addEventListener('click', (event) => {
+	DROPDOWN_LIST.classList.toggle('inactive');
+	if (document.cookie) {
+		while (DROPDOWN_LIST.firstChild) {
+			DROPDOWN_LIST.removeChild(DROPDOWN_LIST.firstChild);
+		}
+		const recent_search_pokemon = document.cookie
+			.replace(/[a-z,_]*=/i, '')
+			.split(',');
+		for (const recent_pokemon_name of recent_search_pokemon) {
+			let dropdown_item = document.createElement('li');
+			dropdown_item.setAttribute('class', 'last-search-item');
+			dropdown_item.innerText = recent_pokemon_name
+				.replaceAll('-', ' ')
+				.trim();
+			addClickEvent(dropdown_item);
+			DROPDOWN_LIST.appendChild(dropdown_item);
+		}
+	}
+});
+
+DROPDOWN_LIST.addEventListener('mouseleave', (event) => {
+	DROPDOWN_LIST.classList.add('inactive');
+});
+
+function addClickEvent(dropdown_item) {
+	dropdown_item.addEventListener('click', (event) => {
+		FIND_POKEMON_INPUT.value = dropdown_item.innerText;
+		FIND_POKEMON_BUTTON.click();
+	});
+}
+
+function saveLastFiveSearch(pokemon_data) {
+	const cookie_array = document.cookie.replace(/[a-z,_]*=/i, '').split(',');
+	if (cookie_array[0] != pokemon_data) {
+		if (cookie_array.find((name) => name === pokemon_data)) {
+			removeRepeatedSearch(pokemon_data);
+		}
+
+		if (cookie_array.length >= 5) {
+			removeOldestSearch();
+			addRecentSearch(pokemon_data);
+			return;
+		} else if (document.cookie) {
+			addRecentSearch(pokemon_data);
+		} else {
+			createCookie('recent_search', pokemon_data);
+		}
+	}
+}
+
+function createCookie(cookie_name, value) {
+	document.cookie = cookie_name + '=' + value + ';';
+}
+
+function addRecentSearch(value) {
+	const actual_recent_search = document.cookie;
+	document.cookie = actual_recent_search.replace('=', '=' + value + ',');
+}
+
+function removeOldestSearch() {
+	const oldest_search_init = document.cookie.lastIndexOf(',');
+	document.cookie = document.cookie.substring(0, oldest_search_init);
+}
+
+function removeRepeatedSearch(value) {
+	document.cookie = document.cookie.replace(',' + value, '');
 }

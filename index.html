@@ -70,7 +70,14 @@
 				</section>
 			</div>
 			<section class="get-your-pokemon-section">
-				<div class="pokemon-img-and-button">
+				<div class="pokemon-container">
+					<div class="input-style last-pokemons-dropdown">
+						<p>Recent searches</p>
+						<span class="dropdown-icon"> expand_more </span>
+						<ul class="dropdown-list inactive">
+							<li class="last-search-item">No recent search</li>
+						</ul>
+					</div>
 					<figure class="pokemon-img-container">
 						<button
 							class="navigate-button before-img-button inactive"
@@ -85,9 +92,9 @@
 							<span class="arrow-ico"> navigate_next </span>
 						</button>
 					</figure>
-					<p class="error-text inactive"></p>
+					<p class="error-text"></p>
 					<input
-						class="find-pokemon-input"
+						class="input-style find-pokemon-input"
 						type="text"
 						placeholder="Pokemon name/Pokedex number"
 					/>
