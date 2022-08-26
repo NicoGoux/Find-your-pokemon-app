@@ -7,6 +7,8 @@ const NEXT_IMG_BUTTON = document.querySelector('.next-img-button');
 const ERROR_TEXT = document.querySelector('.error-text');
 const RECENT_SEARCH = document.querySelector('.last-pokemons-dropdown');
 const DROPDOWN_LIST = document.querySelector('.dropdown-list');
+const BURGUER_MENU = document.querySelector('.burguer-menu');
+const NAVBAR = document.querySelector('.header-nav');
 
 // Pokemon details
 const POKEMON_IMG = document.querySelector('.pokemon-img');
@@ -383,3 +385,12 @@ function removeRepeatedSearch(value) {
 	// se elimina el elemento repetido para luego colocarlo nuevamente al principio
 	document.cookie = document.cookie.replace(',' + value, '');
 }
+
+// Action listener menu hamburguesa para tamaños moviles
+BURGUER_MENU.addEventListener('click', (event) => {
+	NAVBAR.classList.toggle('nav-toggle');
+});
+
+NAVBAR.addEventListener('mouseleave', (event) => {
+	NAVBAR.classList.toggle('nav-toggle');
+});

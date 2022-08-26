@@ -6,6 +6,7 @@ header {
 	font-size: 1.8rem;
 	font-weight: 700;
 	background-color: $hd-ft-background;
+	transition: all 0.5s linear;
 
 	.logo-landing-page {
 		min-width: 50px;
@@ -43,4 +44,10 @@ header {
 			}
 		}
 	}
+
+	.burguer-menu {
+		display: none;
+	}
 }
+
+@import './header_media_query';

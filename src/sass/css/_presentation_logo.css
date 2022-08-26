@@ -1,0 +1,53 @@
+.presentation-logo-div {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.presentation-logo-div .presentation-section {
+  width: 50%;
+  min-width: 300px;
+  max-width: 450px;
+  margin: 0px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.presentation-logo-div .presentation-section h1 {
+  margin-bottom: 10px;
+  font-size: 3.2rem;
+  text-align: center;
+}
+.presentation-logo-div .presentation-section p {
+  margin: 0;
+  font-size: 2rem;
+  text-align: justify;
+}
+@media (max-width: 475px) {
+  .presentation-logo-div .presentation-section {
+    margin: 0px;
+  }
+}
+.presentation-logo-div .img-logo-section {
+  width: 50%;
+  min-width: 300px;
+  max-width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.presentation-logo-div .img-logo-section figure {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.presentation-logo-div .img-logo-section .logo-pokemon {
+  min-width: 260px;
+  width: 100%;
+  height: 100%;
+}
