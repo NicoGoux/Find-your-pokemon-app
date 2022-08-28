@@ -74,6 +74,7 @@ FIND_POKEMON_BUTTON.addEventListener('click', async (event) => {
 
 		// Se guarda en cookie la ultima busqueda
 		saveLastFiveSearch(pokemon.name);
+		FIND_POKEMON_INPUT.value = '';
 	} catch (error) {
 		if (error.name == 'TypeError') {
 			ERROR_TEXT.innerText = 'Could not get access to PokeAPI';
